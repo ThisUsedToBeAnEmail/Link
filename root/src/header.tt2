@@ -1,0 +1,9 @@
+<!-- Page Header -->
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">[% heading FILTER ucfirst %]
+            <small>[% subheading %]</small>
+            <small><a href="[% header_link %]" style="float: right;">[% header_text %]</a></small>
+        </h1>
+    </div>
+</div>

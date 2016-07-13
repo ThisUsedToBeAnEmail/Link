@@ -1,0 +1,6 @@
+[% IF c.action.name == 'create' %]
+[% header_link = c.link('list'), header_text = 'Back to List' %]
+[% ELSE %]
+[% header_link = c.link('view', { author => author }), header_text = 'Back to View' %]
+[% END %]
+[% form.render %]

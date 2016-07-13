@@ -1,0 +1,10 @@
+Install Postgres - because....
+
+createuser -P demoappuser
+pass - demo
+createdb -O demoappuser demoapp
+
+psql -U demoappuser -W demoapp -f root/sql/01-books.sql
+
+script/demoapp_create.pl model DB DBIC::Schema DemoApp::Schema \
+    create=static \ 'dbi:Pg:dbname=demoapp' 'demoappuser' 'demo' '{ AutoCommit => 1 }'

@@ -1,0 +1,6 @@
+[% IF c.action.name == 'create' %]
+[% header_link = c.uri_for_action('/shop/list'), header_text = 'Back to List' %]
+[% ELSE %]
+[% header_link = c.uri_for_action('/shop/view', [book.id]), header_text = 'Back to View' %]
+[% END %]
+[% form.render %]

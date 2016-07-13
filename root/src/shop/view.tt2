@@ -1,0 +1,11 @@
+[% header_link = c.link('list'), header_text = 'Back to List' %]
+<div class="row">
+<div class="col-md-4 portfolio-item">
+	<a href="#">
+    	<img class="img-responsive" src="http://placehold.it/700x400" alt="">
+    </a>
+   	<h3>
+		<a href="[% c.link('edit', [shop.id]) %]">[% shop.name %]</a>
+    </h3>
+</div>
+</div>

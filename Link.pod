@@ -1,8 +1,12 @@
-# NAME
+=head1 NAME
 
 Catalyst::Link
 
-# SYNOPSIS
+=over
+
+=back
+
+=head1 SYNOPSIS
 
 Include the Plugin in your application class:
 
@@ -35,7 +39,7 @@ has a PathPart so for these occasion you can set a Name attribute.
 
     sub chain :Chained('base') :PathPart('') :CapturedArgs(1) :Name('author'){}
 
-basic usage $c->link($action, @||%captured\_args, %query\_params),
+basic usage $c->link($action, @||%captured_args, %query_params),
 
     # if you are in a controller say book/list we need a capture to get to edit 
     # if you have an object and you're lazy like me
@@ -51,7 +55,11 @@ you can also use this in your templates
 
     [% c.link('edit', [book.id]) %]
 
-# DESCRIPTION
+=over
+
+=back
+
+=head1 DESCRIPTION
 
 Link allows you to build dynamic links... which leads to extendable controllers.
 
@@ -60,80 +68,90 @@ Currently I do not think there is a way of building a uri for a relative path.
 For example if I wanted the same functionality in several places accross my web app,
 I could build my controllers at the root and then simply extend them as stub controllers in the relevant places, Alternatively you can do similar with controller roles.
 
-However what I discovered was uri\_for\_action can get very messy very quickly (for a newb). It's currently not smart enough to understand where the user is in the chain and where they should be linked to next. 
+However what I discovered was uri_for_action can get very messy very quickly (for a newb). It's currently not smart enough to understand where the user is in the chain and where they should be linked to next. 
 
-link uses the dispatcher to lookup a pre-processed action\_path. We then loop through each action in that dispatcher chain to check whether any CapturedArgs are associated. Once we have that its simple to build the correct uri\_for\_action call without all the mess. 
+link uses the dispatcher to lookup a pre-processed action_path. We then loop through each action in that dispatcher chain to check whether any CapturedArgs are associated. Once we have that its simple to build the correct uri_for_action call without all the mess. 
 
-# METHODS
+=over
 
-## link
+=back
+
+=head1 METHODS
+
+=head2 link
 
 There are two ways of calling link 
 
     $c->link($action_name, $args, $query_values)
     $c->controller('Book')->link($c, $action_name, $args, $query_values);
 
-### action\_name
+=over
 
-- root
+=back
 
-        # http://localhost/
-        $c->link('/');
+=head3 action_name
+   
+=item root
+ 
+    # http://localhost/
+    $c->link('/');
 
-- link within the controller
+=item link within the controller
 
-        $c->link('view')
+    $c->link('view')
 
-- from the root
+=item from the root
+    
+    # http://localhost/book/list
+    $c->link('/book/list');
 
-        # http://localhost/book/list
-        $c->link('/book/list');
+=item relatively down the chain
 
-- relatively down the chain
+    # start url http://localhost/author/1/view 
+    # http://localhost/author/1/book/list
+    $c->link('book/list');
 
-        # start url http://localhost/author/1/view 
-        # http://localhost/author/1/book/list
-        $c->link('book/list');
+=item relatively up the chain droping one capture
 
-- relatively up the chain droping one capture
+    # start url http://localhost/author/1/book/1/view 
+    # http://localhost/author/1/view
+    $c->link('</view');
 
-        # start url http://localhost/author/1/book/1/view 
-        # http://localhost/author/1/view
-        $c->link('</view');
+'<' tells link that we are going up the chain 
+    
+=item relatively up the chain and then down again
 
-    '<' tells link that we are going up the chain 
+    # start url http://localhost/author/1/book/1/view 
+    # http://localhost/book/list
+    $c->link('<../../book/list');
 
-- relatively up the chain and then down again
+'..' tells link that we need to drop a capture, you can drop as many as you like '<../../..' 
 
-        # start url http://localhost/author/1/book/1/view 
-        # http://localhost/book/list
-        $c->link('<../../book/list');
+=over
 
-    '..' tells link that we need to drop a capture, you can drop as many as you like '<../../..' 
+=back
 
-### args
+=head3 args
 
-- object
+=item object
 
-        $c->link('edit', { capture => $object });
+    $c->link('edit', { capture => $object });
 
-- id
+=item id
 
-        $c->link('edit', { capture_id => $id });
+    $c->link('edit', { capture_id => $id });
 
-- array
+=item array
 
-        $c->link('edit', [ $id ]);
+    $c->link('edit', [ $id ]);
 
-### query\_params
+=head3 query_params
 
-Exactly the same as you would for uri\_for\_action
+Exactly the same as you would for uri_for_action
 
     # http://localhost/author/1/edit?this=thing
     $c->link('edit', [$id], { this => 'thing' });
 
+=over
 
-NOTE the demoapp is just to demonstrate stub controllers at different levels
-currently the captures will not be stored for each level - to achieve this would take some thought
-would probably have to think about joining a unique id by counting the occurances of the same 
-'Named' capture - edge cases
+=back

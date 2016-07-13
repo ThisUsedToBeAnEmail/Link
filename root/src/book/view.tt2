@@ -1,0 +1,14 @@
+[% header_link = c.link('list'), header_text = 'Back to List' %]
+<div class="row">
+<div class="col-md-4 portfolio-item">
+    <a href="#">
+        <img class="img-responsive" src="http://placehold.it/700x400" alt="">
+    </a>
+       <h3>
+        <a href="[% c.link('author/list') %]">[% book.title %]</a>
+    </h3>
+    <p>[% book.description %]</p>
+    <p>[% book.rating %]</p>
+    <a href="[% c.link('edit') %]">edit</a>
+</div>
+</div>
